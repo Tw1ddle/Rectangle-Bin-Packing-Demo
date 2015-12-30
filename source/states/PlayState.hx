@@ -11,7 +11,9 @@ import flixel.util.FlxColor;
 class PackedRectangle extends FlxSprite {
 	public function new(x:Int, y:Int, width:Int, height:Int) {
 		super(x, y);
-		makeGraphic(width, height);
+		makeGraphic(width, height, FlxColor.fromRGB(Std.int(Math.random() * 255), Std.int(Math.random() * 255), Std.int(Math.random() * 255)));
+		
+		// TODO add number/label
 	}
 }
 
@@ -20,6 +22,8 @@ class PlayState extends FlxState {
 	private var eventText:TextItem;
 	private var buttonsGroup:FlxTypedSpriteGroup<TextButton>;
 	private var rectsGroup:FlxTypedSpriteGroup<PackedRectangle>;
+	
+	private var failedAdds:Int;
 	
 	override public function create():Void {
 		super.create();
@@ -32,12 +36,12 @@ class PlayState extends FlxState {
 		
 		buttons.push(new TextButton(0, 0, "Naive Shelf", function() {
 			var node = naiveShelfPack.insert(rand(10, 80), rand(5, 50));
-			
 			if (node != null) {
 				addRect(node.x, node.y, node.width, node.height);
 				addOccupancyText(naiveShelfPack.occupancy());
 			} else {
-				addText("Failed to add node");
+				failedAdds++;
+				addText("Failed to add node (x" + failedAdds + ")"); // Gives up on failure, you might prefer to create a new packer/bin and continue packing stuff
 			}
 		}));
 		buttons.push(new TextButton(0, 0, "Shelf", function() {
@@ -72,7 +76,8 @@ class PlayState extends FlxState {
 		
 		var msg:String = "Packing State";
 		var substateText:TextItem = new TextItem(0, 0, msg, 14);
-		substateText.screenCenter(FlxAxes.XY);
+		substateText.screenCenter(FlxAxes.X);
+		substateText.y = 30;
 		add(substateText);
 		
 		eventText = new TextItem(0, 0, "Initializing...", 12);
@@ -87,8 +92,9 @@ class PlayState extends FlxState {
 	
 	private function init():Void {
 		clearLog();
-		naiveShelfPack = new NaiveShelfPack(FlxG.width, FlxG.height);
+		naiveShelfPack = new NaiveShelfPack(Std.int(FlxG.width / 2), Std.int(FlxG.height / 2));
 		rectsGroup.clear();
+		failedAdds = 0;
 	}
 	
 	private function addOccupancyText(occupancy:Float):Void {
@@ -110,6 +116,7 @@ class PlayState extends FlxState {
 	}
 	
 	private function addRect(x:Int, y:Int, width:Int, height:Int):Void {
+		addText("Adding rect: " + "x:" + x + ", y:" + y + ", w:" + width + ", h:" + height);
 		rectsGroup.add(new PackedRectangle(x, y, width, height));
 	}
 	
