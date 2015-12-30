@@ -1,24 +1,38 @@
 package states;
 
 import binpacking.NaiveShelfPack;
+import binpacking.OptimizedMaxRectsPack;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
+import flixel.text.FlxText;
 import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 
 class PackedRectangle extends FlxSprite {
-	public function new(x:Int, y:Int, width:Int, height:Int) {
+	public function new(x:Int, y:Int, width:Int, height:Int, label:String) {
 		super(x, y);
 		makeGraphic(width, height, FlxColor.fromRGB(Std.int(Math.random() * 255), Std.int(Math.random() * 255), Std.int(Math.random() * 255)));
 		
-		// TODO add number/label
+		var text = new FlxText(0, 0, 0, label, 8);
+		stamp(text);
 	}
 }
 
 class PlayState extends FlxState {
 	private var naiveShelfPack:NaiveShelfPack;
+	
+	/*
+	private var shelfPack:ShelfPack;
+	private var guillotinePack:GuillotinePack;
+	private var skylinePack:SkylinePack;
+	private var maxRectsPack:MaxRectsPack;
+	private var optimalMaxRectsPack:OptimizedMaxRectsPack;
+	*/
+	
+	private static var label:Int = 0;
+	
 	private var eventText:TextItem;
 	private var buttonsGroup:FlxTypedSpriteGroup<TextButton>;
 	private var rectsGroup:FlxTypedSpriteGroup<PackedRectangle>;
@@ -95,6 +109,7 @@ class PlayState extends FlxState {
 		naiveShelfPack = new NaiveShelfPack(Std.int(FlxG.width / 2), Std.int(FlxG.height / 2));
 		rectsGroup.clear();
 		failedAdds = 0;
+		label = 0;
 	}
 	
 	private function addOccupancyText(occupancy:Float):Void {
@@ -116,8 +131,8 @@ class PlayState extends FlxState {
 	}
 	
 	private function addRect(x:Int, y:Int, width:Int, height:Int):Void {
-		addText("Adding rect: " + "x:" + x + ", y:" + y + ", w:" + width + ", h:" + height);
-		rectsGroup.add(new PackedRectangle(x, y, width, height));
+		addText("Packing rect " + "#" + Std.string(label) + " - x:" + x + ", y:" + y + ", w:" + width + ", h:" + height);
+		rectsGroup.add(new PackedRectangle(x, y, width, height, Std.string(label++)));
 	}
 	
 	private function rand(min:Int, max:Int):Int {

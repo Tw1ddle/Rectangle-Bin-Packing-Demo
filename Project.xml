@@ -41,6 +41,7 @@
 	<!--------------------------------LIBRARIES------------------------------------->
 	
 	<haxelib name="flixel" />
+	<haxelib name="sure" />
 	
 	<!-- Change this line to the version of the Bin Packing haxelib you want to build against! -->
 	<!-- <haxelib name="bin-packing" /> -->
