@@ -35,6 +35,7 @@
 	<assets path="assets/sounds" type="sound" if="cpp">
 	</assets>
 	<assets path="assets/fonts">
+		<font path="pf_westa_seven.ttf" id="westa_seven" />
 	</assets>
 	
 	<!--------------------------------LIBRARIES------------------------------------->
