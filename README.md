@@ -13,11 +13,12 @@ haxelib install bin-packing
 
 ------
 
-Build the app and press the buttons at the bottom of the "Game Substate" to test the different types of packing algorithm. Tap the test button to run a battery of tests.
+Build the app and repeatedly tap the buttons at the bottom of the "Game Substate" to test the packing algorithms. Tap the test button to run a battery of tests.
 
 ![Screenshot](screenshots/screenshot1.png?raw=true "Bin Packing Algorithm Demo screenshot 1")
 
 ![Screenshot](screenshots/screenshot2.png?raw=true "Bin Packing Algorithm Demo screenshot 2")
 
 ### Notes ###
-* The "OptimizedMaxRectsPacker" algorithm does not have an occupancy measure, so it always prints 0% for occupancy.
+* This demo should work on all the Haxe targets that HaxeFlixel supports.
+* The "OptimizedMaxRectsPacker" does not keep an occupancy measure, so it always prints 0% for occupancy.
