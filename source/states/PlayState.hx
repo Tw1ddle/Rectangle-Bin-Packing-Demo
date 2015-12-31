@@ -1,7 +1,12 @@
 package states;
 
+import binpacking.GuillotinePack;
+import binpacking.MaxRectsPack;
 import binpacking.NaiveShelfPack;
 import binpacking.OptimizedMaxRectsPack;
+import binpacking.Rect;
+import binpacking.ShelfPack;
+import binpacking.SkylinePack;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -22,14 +27,11 @@ class PackedRectangle extends FlxSprite {
 
 class PlayState extends FlxState {
 	private var naiveShelfPack:NaiveShelfPack;
-	
-	/*
 	private var shelfPack:ShelfPack;
 	private var guillotinePack:GuillotinePack;
 	private var skylinePack:SkylinePack;
 	private var maxRectsPack:MaxRectsPack;
-	private var optimalMaxRectsPack:OptimizedMaxRectsPack;
-	*/
+	private var optimizedMaxRectsPack:OptimizedMaxRectsPack;
 	
 	private static var label:Int = 0;
 	
@@ -58,18 +60,66 @@ class PlayState extends FlxState {
 				addText("Failed to add node (x" + failedAdds + ")"); // Gives up on failure, you might prefer to create a new packer/bin and continue packing stuff
 			}
 		}));
+		
 		buttons.push(new TextButton(0, 0, "Shelf", function() {
-			
+			var node:Rect = shelfPack.insert(rand(10, 80), rand(5, 50), ShelfChoiceHeuristic.BestArea);
+			if (node != null) {
+				addRect(Std.int(node.x), Std.int(node.y), Std.int(node.width), Std.int(node.height));
+				addOccupancyText(shelfPack.occupancy());
+			} else {
+				failedAdds++;
+				addText("Failed to add node (x" + failedAdds + ")");
+			}
 		}));
+		
 		buttons.push(new TextButton(0, 0, "Guillotine", function() {
-			
+			var node:Rect = guillotinePack.insert(rand(10, 80), rand(5, 50), true, GuillotineFreeRectChoiceHeuristic.BestAreaFit, GuillotineSplitHeuristic.MinimizeArea);
+			if (node != null) {
+				addRect(Std.int(node.x), Std.int(node.y), Std.int(node.width), Std.int(node.height));
+				addOccupancyText(guillotinePack.occupancy());
+			} else {
+				failedAdds++;
+				addText("Failed to add node (x" + failedAdds + ")");
+			}
 		}));
+		
 		buttons.push(new TextButton(0, 0, "Skyline", function() {
-			
+			var node:Rect = skylinePack.insert(rand(10, 80), rand(5, 50), LevelChoiceHeuristic.MinWasteFit);
+			if (node != null) {
+				addRect(Std.int(node.x), Std.int(node.y), Std.int(node.width), Std.int(node.height));
+				addOccupancyText(skylinePack.occupancy());
+			} else {
+				failedAdds++;
+				addText("Failed to add node (x" + failedAdds + ")");
+			}
 		}));
+		
 		buttons.push(new TextButton(0, 0, "Max Rects", function() {
-			
+			var node:Rect = maxRectsPack.insert(rand(10, 80), rand(5, 50), FreeRectChoiceHeuristic.BestAreaFit);
+			if (node != null) {
+				addRect(Std.int(node.x), Std.int(node.y), Std.int(node.width), Std.int(node.height));
+				addOccupancyText(maxRectsPack.occupancy());
+			} else {
+				failedAdds++;
+				addText("Failed to add node (x" + failedAdds + ")");
+			}
 		}));
+		
+		buttons.push(new TextButton(0, 0, "Opt Max Rects", function() {
+			var node:Rect = optimizedMaxRectsPack.insert(rand(10, 80), rand(5, 50));
+			if (node != null) {
+				addRect(Std.int(node.x), Std.int(node.y), Std.int(node.width), Std.int(node.height));
+				//addOccupancyText(optimizedMaxRectsPack.occupancy());
+			} else {
+				failedAdds++;
+				addText("Failed to add node (x" + failedAdds + ")");
+			}
+		}));
+		
+		buttons.push(new TextButton(0, 0, "Tests", function() {
+			trace("Running tests");
+		}));
+		
 		buttons.push(new TextButton(0, 0, "Reset", function() {
 			init();
 		}));
@@ -106,7 +156,17 @@ class PlayState extends FlxState {
 	
 	private function init():Void {
 		clearLog();
-		naiveShelfPack = new NaiveShelfPack(Std.int(FlxG.width / 2), Std.int(FlxG.height / 2));
+		
+		var w = Std.int(FlxG.width / 2);
+		var h = Std.int(FlxG.height / 2);
+		
+		naiveShelfPack = new NaiveShelfPack(w, h);
+		shelfPack = new ShelfPack(w, h, true);
+		guillotinePack = new GuillotinePack(w, h);
+		maxRectsPack = new MaxRectsPack(w, h);
+		optimizedMaxRectsPack = new OptimizedMaxRectsPack(w, h);
+		skylinePack = new SkylinePack(w, h, true);
+		
 		rectsGroup.clear();
 		failedAdds = 0;
 		label = 0;
@@ -118,7 +178,7 @@ class PlayState extends FlxState {
 		if (shelfPack.length > 6) {
 			shelfPack = shelfPack.substring(0, 5);
 		}
-			
+		
 		addText("Occupancy: " + shelfPack + "%");
 	}
 	
@@ -131,6 +191,8 @@ class PlayState extends FlxState {
 	}
 	
 	private function addRect(x:Int, y:Int, width:Int, height:Int):Void {
+		Sure.sure(x >= 0 && y >= 0 && width > 0 && height > 0);
+		
 		addText("Packing rect " + "#" + Std.string(label) + " - x:" + x + ", y:" + y + ", w:" + width + ", h:" + height);
 		rectsGroup.add(new PackedRectangle(x, y, width, height, Std.string(label++)));
 	}
