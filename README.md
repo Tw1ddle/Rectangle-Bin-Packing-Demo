@@ -1,3 +1,5 @@
+![Project logo](screenshots/bin_packing_logo.png?raw=true "Bin Packing Algorithms Logo")
+
 # Rectangle Bin Packing Demo
 
 Demo of the Haxe rectangle [bin packing](https://github.com/Tw1ddle/Rectangle-Bin-Packing) algorithm [haxelib](http://lib.haxe.org/p/bin-packing).
@@ -21,4 +23,4 @@ Build the app and repeatedly tap the buttons at the bottom of the "Game Substate
 
 ### Notes ###
 * This demo should work on all the Haxe targets that HaxeFlixel supports.
-* The "OptimizedMaxRectsPacker" does not keep an occupancy measure, so it always prints 0% for occupancy.
+* The "OptimizedMaxRectsPacker" does not keep an occupancy measure, so it currently outputs 0% for occupancy.
