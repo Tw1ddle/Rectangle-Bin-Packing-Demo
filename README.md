@@ -1,8 +1,8 @@
-![Project logo](screenshots/bin_packing_logo.png?raw=true "Bin Packing Algorithms Logo")
+![Project logo](screenshots/bin_packing_logo.png?raw=true "Bin Packing Algorithms Demo Logo")
 
 # Rectangle Bin Packing Demo
 
-Demo of the Haxe rectangle [bin packing](https://github.com/Tw1ddle/Rectangle-Bin-Packing) algorithm [haxelib](http://lib.haxe.org/p/bin-packing).
+Demo of the Haxe rectangle [bin packing](https://github.com/Tw1ddle/Rectangle-Bin-Packing) algorithms [haxelib](http://lib.haxe.org/p/bin-packing). Try the live demo [in your browser](http://www.samcodes.co.uk/project/rectangle-bin-packing-demo/).
 
 ### Usage ###
 
@@ -13,9 +13,9 @@ haxelib git flixel https://github.com/HaxeFlixel/flixel dev # Else try stable br
 haxelib install bin-packing
 ```
 
-------
-
 Build the app and repeatedly tap the buttons at the bottom of the "Game Substate" to test the packing algorithms. Tap the test button to run a battery of tests.
+
+### Screenshots ###
 
 ![Screenshot](screenshots/screenshot1.png?raw=true "Bin Packing Algorithm Demo screenshot 1")
 
