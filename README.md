@@ -13,7 +13,7 @@ haxelib git flixel https://github.com/HaxeFlixel/flixel dev # Else try stable br
 haxelib install bin-packing
 ```
 
-Build the app and repeatedly tap the buttons at the bottom of the "Game Substate" to test the packing algorithms. Rectangles are numbered, and flipped rectangles are marked with "F". Tap the test button to run a battery of tests.
+Build the app and repeatedly tap the buttons at the bottom of the screen to test the packing algorithms. Rectangles are numbered as they are added, and flipped rectangles are marked with "F". Tap the test button to run a battery of tests.
 
 ### Screenshots ###
 
