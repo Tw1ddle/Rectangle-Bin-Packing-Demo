@@ -3,7 +3,7 @@ package states;
 import binpacking.GuillotinePacker;
 import binpacking.MaxRectsPacker;
 import binpacking.NaiveShelfPacker;
-import binpacking.OptimizedMaxRectsPacker;
+import binpacking.SimplifiedMaxRectsPacker;
 import binpacking.Rect;
 import binpacking.ShelfPacker;
 import binpacking.SkylinePacker;
@@ -39,22 +39,21 @@ class PlayState extends FlxState {
 	private var guillotinePack:GuillotinePacker;
 	private var skylinePack:SkylinePacker;
 	private var maxRectsPack:MaxRectsPacker;
-	private var optimizedMaxRectsPack:OptimizedMaxRectsPacker;
+	private var simplifiedMaxRectsPack:SimplifiedMaxRectsPacker;
 	
 	private var eventText:TextItem; // Info messages
 	private var buttonsGroup:FlxTypedSpriteGroup<TextButton>; // User controls
 	private var rectsGroup:FlxSpriteGroup; // Group for all rectangles added by a packing algorithm
 	
-	private var binX:Int = 0;
-	private var binY:Int = 0;
-	private var binWidth:Int = 0;
-	private var binHeight:Int = 0;
+	private var binX:Int;
+	private var binY:Int;
+	private var binWidth:Int;
+	private var binHeight:Int;
 	private var binRect:FlxSprite; // Draw the bin, for visually confirming rects are all within it
 	
 	private static var successCount:Int = 0; // Useful for stamping on rectangle sprites for id'ing them
 	private static var failureCount:Int = 0; // How many times an algorithm fails to add a rect to its bin
-	
-	private static var currentTestIdx:Int = 0; // For cycling through tests
+	private static var currentTestIdx:Int = 0; // Counter for cycling through tests
 	
 	override public function create():Void {
 		super.create();
@@ -74,11 +73,11 @@ class PlayState extends FlxState {
 		binRect.makeGraphic(binWidth, binHeight, FlxColor.fromRGB(50, 50, 50));
 		rectsGroup.add(binRect);
 		
+		// Create user controls
 		var rand = function(min:Int, max:Int):Int {
 			return Std.int(min + Math.random() * (max - min));
 		}
 		
-		// Create user controls for 
 		var buttons:Array<TextButton> = [];
 		buttons.push(new TextButton(0, 0, "Naive Shelf", function() {
 			var node = naiveShelfPack.insert(rand(10, 80), rand(5, 50));
@@ -105,9 +104,9 @@ class PlayState extends FlxState {
 			addRect(maxRectsPack.occupancy, node);
 		}));
 		
-		buttons.push(new TextButton(0, 0, "Opt Max Rects", function() {
-			var node:Rect = optimizedMaxRectsPack.insert(rand(10, 80), rand(5, 50));
-			addRect(optimizedMaxRectsPack.occupancy, node);
+		buttons.push(new TextButton(0, 0, "Simple Max Rects", function() {
+			var node:Rect = simplifiedMaxRectsPack.insert(rand(10, 80), rand(5, 50));
+			addRect(simplifiedMaxRectsPack.occupancy, node);
 		}));
 		
 		buttons.push(new TextButton(0, 0, "Tests", function() {
@@ -146,7 +145,7 @@ class PlayState extends FlxState {
 						var heuristic = randomElement(Type.allEnums(FreeRectChoiceHeuristic));
 						addRect(maxRectsPack.occupancy, maxRectsPack.insert(size.width, size.height, heuristic));
 					case 5:
-						addRect(optimizedMaxRectsPack.occupancy, optimizedMaxRectsPack.insert(size.width, size.height));
+						addRect(simplifiedMaxRectsPack.occupancy, simplifiedMaxRectsPack.insert(size.width, size.height));
 				}
 			}
 			
@@ -192,13 +191,13 @@ class PlayState extends FlxState {
 		shelfPack = new ShelfPacker(w, h, true);
 		guillotinePack = new GuillotinePacker(w, h);
 		maxRectsPack = new MaxRectsPacker(w, h);
-		optimizedMaxRectsPack = new OptimizedMaxRectsPacker(w, h);
+		simplifiedMaxRectsPack = new SimplifiedMaxRectsPacker(w, h);
 		skylinePack = new SkylinePacker(w, h, true);
 		
 		rectsGroup.clear();
 		binRect.x = 0;
 		binRect.y = 0;
-		rectsGroup.add(binRect); // Readd the background rect
+		rectsGroup.add(binRect); // Re-add the background rect
 		
 		failureCount = 0;
 		successCount = 0;
