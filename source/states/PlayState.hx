@@ -17,13 +17,18 @@ import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
 
 // Displays a rectangle that has been packed by the packer
-class PackedRectangle extends FlxSprite {
+class PackedRectangle extends FlxSpriteGroup {
 	public function new(x:Int, y:Int, width:Int, height:Int, label:String) {
 		super(x, y);
-		makeGraphic(width, height, FlxColor.fromRGB(Std.int(Math.random() * 255), Std.int(Math.random() * 255), Std.int(Math.random() * 255)));
+		
+		Sure.sure(width > 0 && height > 0);
+		
+		var sprite = new FlxSprite();
+		sprite.makeGraphic(width, height, FlxColor.fromRGB(Std.int(Math.random() * 255), Std.int(Math.random() * 255), Std.int(Math.random() * 255)));
+		add(sprite);
 		
 		var text = new FlxText(0, 0, 0, label, 8);
-		stamp(text);
+		add(text);
 	}
 }
 

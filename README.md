@@ -2,7 +2,7 @@
 
 # Rectangle Bin Packing Demo
 
-Demo of the Haxe rectangle [bin packing](https://github.com/Tw1ddle/Rectangle-Bin-Packing) algorithms [haxelib](http://lib.haxe.org/p/bin-packing). Try the live demo [in your browser](http://www.samcodes.co.uk/project/rectangle-bin-packing-demo/).
+Demo of the Haxe rectangle [bin packing](https://github.com/Tw1ddle/Rectangle-Bin-Packing) algorithms [haxelib](http://lib.haxe.org/p/bin-packing). Try the demo [in your browser](http://www.samcodes.co.uk/project/rectangle-bin-packing-demo/).
 
 ### Usage ###
 
