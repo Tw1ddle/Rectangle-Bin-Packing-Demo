@@ -13,7 +13,7 @@ haxelib git flixel https://github.com/HaxeFlixel/flixel dev # Else try stable br
 haxelib install bin-packing
 ```
 
-Build the app and repeatedly tap the buttons at the bottom of the "Game Substate" to test the packing algorithms. Tap the test button to run a battery of tests.
+Build the app and repeatedly tap the buttons at the bottom of the "Game Substate" to test the packing algorithms. Rectangles are numbered, and flipped rectangles are marked with "F". Tap the test button to run a battery of tests.
 
 ### Screenshots ###
 
@@ -22,5 +22,4 @@ Build the app and repeatedly tap the buttons at the bottom of the "Game Substate
 ![Screenshot](screenshots/screenshot2.png?raw=true "Bin Packing Algorithm Demo screenshot 2")
 
 ### Notes ###
-* This demo should work on all the Haxe targets that HaxeFlixel supports.
-* The "OptimizedMaxRectsPacker" does not keep an occupancy measure, so it currently outputs 0% for occupancy.
+* This demo should work on all the Haxe targets that HaxeFlixel supports, but isn't thoroughly tested yet.

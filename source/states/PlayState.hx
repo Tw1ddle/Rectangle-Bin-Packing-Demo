@@ -209,10 +209,16 @@ class PlayState extends FlxState {
 			var y:Int = Std.int(rect.y);
 			var width:Int = Std.int(rect.width);
 			var height:Int = Std.int(rect.height);
+			var flipped:Bool = rect.flipped;
 			Sure.sure(x >= 0 && y >= 0 && width > 0 && height > 0);
 			
+			var label = Std.string(successCount++);
+			if (flipped) {
+				label += "(F)";
+			}
+			
 			addText("Packing rect " + "#" + Std.string(successCount) + " - x:" + x + ", y:" + y + ", w:" + width + ", h:" + height);
-			rectsGroup.add(new PackedRectangle(x, y, width, height, Std.string(successCount++)));
+			rectsGroup.add(new PackedRectangle(x, y, width, height, label));
 			
 			addOccupancyText(occupancy());
 		} else {
