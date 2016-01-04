@@ -13,7 +13,7 @@ haxelib git flixel https://github.com/HaxeFlixel/flixel dev # Else try stable br
 haxelib install bin-packing
 ```
 
-Build the app and repeatedly tap the buttons at the bottom of the screen to test the packing algorithms. Rectangles are numbered as they are added, and flipped rectangles are marked with "F". Tap the test button to run a battery of tests.
+Build the app and repeatedly tap the buttons at the bottom of the screen to test the packing algorithms. Rectangles are numbered as they are added, and flipped rectangles are marked with an "F". Tap the test button to run sets of tests.
 
 ### Screenshots ###
 
@@ -22,4 +22,4 @@ Build the app and repeatedly tap the buttons at the bottom of the screen to test
 ![Screenshot](screenshots/screenshot2.png?raw=true "Bin Packing Algorithm Demo screenshot 2")
 
 ### Notes ###
-* This demo should work on all the Haxe targets that HaxeFlixel supports, but isn't thoroughly tested yet.
+* This demo should work on all targets that HaxeFlixel supports.
