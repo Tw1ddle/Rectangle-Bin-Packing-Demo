@@ -16,22 +16,24 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="C:\HaxeToolkit\haxe\lib\flixel\git" />
-    <class path="C:\HaxeToolkit\haxe\lib\openfl\3,5,3" />
-    <class path="C:\HaxeToolkit\haxe\lib\lime\2,8,2" />
-    <class path="C:\HaxeToolkit\haxe\lib\hscript\2,0,5" />
+    <class path="C:\HaxeToolkit\haxe\lib\lime\2,9,1" />
+    <class path="C:\HaxeToolkit\haxe\lib\openfl\3,6,1" />
+    <class path="C:\HaxeToolkit\haxe\lib\lime\3,0,0" />
+    <class path="C:\HaxeToolkit\haxe\lib\hscript\2,0,7" />
     <class path="C:\HaxeToolkit\haxe\lib\sure\0,1,1" />
     <class path="source" />
+    <class path="C:\HaxeToolkit\haxe\lib\openfl\3,6,1\extern" />
     <class path="lib\bin-packing" />
-    <class path="export\flash\haxe" />
+    <class path="export\windows\neko\release\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="flixel=3.3.12&#xA;openfl=3.5.3&#xA;lime=2.8.2&#xA;hscript=2.0.5&#xA;sure=0.1.1&#xA;openfl-next&#xA;FLX_NO_GAMEPAD&#xA;FLX_NO_FOCUS_LOST_SCREEN&#xA;Dfdb&#xA;tools=2.8.2&#xA;no-compilation&#xA;openfl-flash&#xA;web&#xA;display" />
+    <option directives="flixel=4.1.0&#xA;lime=2.9.1&#xA;openfl=3.6.1&#xA;lime=3.0.0&#xA;hscript=2.0.7&#xA;sure=0.1.1&#xA;HXCPP_QUIET&#xA;openfl-next&#xA;FLX_NO_GAMEPAD&#xA;FLX_NO_FOCUS_LOST_SCREEN&#xA;tools=3.0.0&#xA;FLX_NO_DEBUG&#xA;no-compilation&#xA;native&#xA;FLX_NO_TOUCH&#xA;lime-native&#xA;openfl-native&#xA;windows&#xA;desktop&#xA;display" />
     <option flashStrict="False" />
     <option noInlineOnDebug="True" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="--macro openfl.Lib.includeExterns()&#xA;--macro flixel.system.macros.FlxDefines.run()&#xA;-swf-version 11.2&#xA;-debug " />
+    <option additional="#--macro keep('IntIterator')&#xA;--remap flash:openfl&#xA;--macro flixel.system.macros.FlxDefines.run()&#xA;#--macro keep(&quot;Main&quot;)" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

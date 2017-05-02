@@ -1,6 +1,6 @@
 ![Project logo](screenshots/bin_packing_logo.png?raw=true "Bin Packing Algorithms Demo Logo")
 
-# Rectangle Bin Packing Demo
+[![Build Status](https://img.shields.io/travis/Tw1ddle/Rectangle-Bin-Packing-Demo.svg?style=flat-square)](https://travis-ci.org/Tw1ddle/Rectangle-Bin-Packing-Demo)
 
 Demo of the Haxe rectangle [bin packing](https://github.com/Tw1ddle/Rectangle-Bin-Packing) algorithms [haxelib](http://lib.haxe.org/p/bin-packing). Try the demo [in your browser](http://samcodes.itch.io/rectangle-bin-packer).
 
