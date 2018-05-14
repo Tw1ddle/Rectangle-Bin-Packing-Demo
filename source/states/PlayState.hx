@@ -15,6 +15,7 @@ import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxAxes;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 
 // Displays a rectangle that has been packed by the packer
 class PackedRectangle extends FlxSpriteGroup {
@@ -109,7 +110,7 @@ class PlayState extends FlxState {
 			addRect(simplifiedMaxRectsPack.occupancy, node);
 		}));
 		
-		buttons.push(new TextButton(0, 0, "Tests", function() {
+		var tortureButton = new TextButton(0, 0, "Torture Tests", function() {
 			addText("Running test");
 			
 			// Generate some rect sizes to cover the whole area of the bin (or slightly over)
@@ -153,7 +154,17 @@ class PlayState extends FlxState {
 			if (currentTestIdx > 5) {
 				currentTestIdx = 0;
 			}
-		}));
+		});
+		
+		buttons.push(tortureButton);
+		
+		// Make the torture button say "press me"
+		var oldColor = tortureButton.color;
+		var i:Int = 0;
+		new FlxTimer().start(0.5, function(t:FlxTimer):Void {
+			i % 2 == 0 ? tortureButton.color = FlxColor.fromRGB(200, 128, 128, 255) : tortureButton.color = oldColor;
+			i++;
+		}, 4);
 		
 		buttons.push(new TextButton(0, 0, "Reset", function() {
 			init();
@@ -169,12 +180,12 @@ class PlayState extends FlxState {
 			buttonsGroup.add(button);
 		}
 		
+		eventText = new TextItem(0, 0, "Initializing...", 12);
+		add(eventText);
+		
 		buttonsGroup.screenCenter(FlxAxes.X);
 		buttonsGroup.y = FlxG.height * 0.75;
 		add(buttonsGroup);
-		
-		eventText = new TextItem(0, 0, "Initializing...", 12);
-		add(eventText);
 		
 		add(rectsGroup);
 		
@@ -240,7 +251,7 @@ class PlayState extends FlxState {
 	}
 	
 	private function clearLog():Void {
-		eventText.text = "Waiting...";
+		eventText.text = "Waiting...\nPress the buttons to pack rects!\n";
 	}
 	
 	private inline function randomElement<T>(array:Array<T>):T {
