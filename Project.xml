@@ -24,10 +24,6 @@
 	<set name="BUILD_DIR" value="export" />
 	<classpath name="source" />
 	
-	<assets path="assets/fonts">
-		<font path="pf_westa_seven.ttf" id="westa_seven" />
-	</assets>
-	
 	<!--------------------------------LIBRARIES------------------------------------->
 	
 	<haxelib name="flixel" />
@@ -40,7 +36,7 @@
 	<!---------------------------------HAXEDEFINES---------------------------------->
 	
 	<!--Enable this for nape release builds for a serious peformance improvement-->
-	<!--<haxedef name="NAPE_RELEASE_BUILD" />--> 
+	<!--<haxedef name="NAPE_RELEASE_BUILD" />-->
 	
 	<!--Enable the flixel core recording system-->
 	<!--<haxedef name="FLX_RECORD" />-->
