@@ -26,6 +26,8 @@
 	
 	<!--------------------------------LIBRARIES------------------------------------->
 	
+	<haxeflag name="-dce full" />
+	
 	<haxelib name="flixel" />
 	<haxelib name="sure" />
 	
